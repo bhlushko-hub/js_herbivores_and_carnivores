@@ -14,20 +14,16 @@ class Herbivore extends Animal {
   hidden = false;
 
   hide() {
-    this.hidden = !this.hidden;
+    this.hidden = true; // Тепер завжди приховуємо травоїдну тварину
   }
 }
 
 class Carnivore extends Animal {
   bite(target) {
-    if (target instanceof Animal && target !== this) {
-      // Перевіряємо, що ціль — це тварина (не обов'язково травоїдна)
-      if (target instanceof Herbivore && target.hidden) {
-        return;
-      } // Якщо травоїдне сховалося — не кусати
-
-      if (target instanceof Carnivore) {
-        return; // Не кусати інших хижаків
+    if (target instanceof Herbivore && target !== this) {
+      // Перевіряємо, що ціль — це травоїдна тварина
+      if (target.hidden) {
+        return; // Якщо травоїдне сховалося — не кусати
       }
 
       target.health = Math.max(0, target.health - 50);
